@@ -84,6 +84,13 @@ Somewhere at the beginning of your project, include a code chunk that includes a
 
 What are the variables that you will be using in the main part of the report? What are their ranges? You could include a table with variable names, a short explanation, and (very broad) summary statistics.
 
+The variables we will be focusing on are:
+Occupation: what the person does for work
+Stress level - ranged from 3 to 8
+Sleep duration - ranges from 5.8 to 8.5 hours
+Quality of sleep - ranges from 4 to 9
+BMI category - what category the person fits into on the BMI scale
+
 # Results
 
 Each line of exploration is supposed to be featured in one of the Results sections. Make sure to change to more interesting section headers!
