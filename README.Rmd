@@ -60,7 +60,7 @@ The structure sketched out below is an idea of what your repository might look l
 
 # Title of your project {.unnumbered}
 
-Authors: First Name Last Name, First Name Last Name, ...
+Authors: Cole Flickinger, Isaac Irving, Cameron Kraklio
 
 ## Abstract (TL;DR) {.unnumbered}
 
@@ -73,6 +73,7 @@ An abstract is a quick summary of your work. Ideally it should motivate someone 
 # Intro/Background/Motivation
 
 What is the topic of your project, why is it relevant?
+
 
 At the end of the Intro, write a sentence describing what each of the (result) sections is about, e.g. in section [Results 1] we show the relationship between XXX and YYY,  section [Results 2] also considers the effect of variable ZZZ. ...
 Finally we conclude with a quick summary of our findings and potential follow-up work in section [Conclusions].
