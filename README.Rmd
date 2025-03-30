@@ -101,9 +101,6 @@ View(df)
 
 ```{r 2nd scatterplot, echo=FALSE, fig.cap="This is the figure caption. Make sure to use the description we practised in the homework: first sentence describes structure of the plot, second sentence describes main finding, third sentence describes outliers/follow-up.", message = FALSE}
 
-mtcars %>% 
-  ggplot(aes(x = wt, y = mpg)) + 
-  geom_point()
 ```
 
 Additionally, you can also refer to different sections in your writeup by using anchors (links) to section headers. Here, we are referring to subsection [Results 3]. The code for that is `[Results 3]`.
