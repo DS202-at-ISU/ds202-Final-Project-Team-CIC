@@ -1,6 +1,6 @@
 ---
 title: "DS 202 Final Project"
-output: 
+output:
   github_document:
     number_section: FALSE
 ---
@@ -102,8 +102,7 @@ In your write-up, make sure to refer to all of the figures you create. You can i
 
 ```{r scatterplot, echo=FALSE, fig.cap="This is the figure caption. Make sure to use the description we practised in the homework: first sentence describes structure of the plot, second sentence describes main finding, third sentence describes outliers/follow-up.", message = FALSE}
 df <- read_csv("Sleep_health_and_lifestyle_dataset.csv")
-View(df)
-#mtcars %>% ggplot(aes(x = wt, y = mpg)) +geom_point()
+str(df)
 ```
 
 ```{r 2nd scatterplot, echo=FALSE, fig.cap="This is the figure caption. Make sure to use the description we practised in the homework: first sentence describes structure of the plot, second sentence describes main finding, third sentence describes outliers/follow-up.", message = FALSE}
