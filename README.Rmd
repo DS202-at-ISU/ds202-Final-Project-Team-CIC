@@ -113,6 +113,16 @@ Additionally, you can also refer to different sections in your writeup by using 
 
 ## Results 2
 
+Cole Flickinger: Attempt to look at health and sleep based on occupation alone.
+
+```{r}
+head(df)
+summary(df)
+#summary(df$Occupation)
+unique(df$Occupation)
+df %>% ggplot(aes(x = nrow(), y = `Quality of Sleep`)) + geom_line() + facet_wrap(~df$Occupation)
+```
+
 ## Results 3
 
 ...
