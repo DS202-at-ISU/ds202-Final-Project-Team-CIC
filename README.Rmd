@@ -161,11 +161,6 @@ Cole Flickinger: Attempt to look at health and sleep based on occupation alone.
 # Sleep Health Data Cleaning Script
 # This script cleans the sleep health and lifestyle dataset
 
-# Load required libraries
-library(dplyr)
-library(tidyr)
-library(ggplot2)
-
 # Read the data
 #df <- read.csv("Sleep_health_and_lifestyle_dataset.csv")
 
@@ -188,7 +183,7 @@ colSums(is.na(sleep_data_clean))
 
 # Standardize categorical variables
 # BMI Category standardization
-unique(sleep_data_clean$BMI.Category)
+unique(sleep_data_clean$BMI.Category)#sort of like gathering levels
 sleep_data_clean <- sleep_data_clean %>%
   mutate(`BMI Category` = case_when(
     `BMI Category` %in% c("Normal Weight", "Normal") ~ "Normal",
@@ -271,7 +266,7 @@ df %>% ggplot(aes(x = `Stress Level`, y = `Quality of Sleep`)) + geom_line() + f
 
 ```{r}
 job_df_cleaned <- df_cleaned %>% filter(!Occupation %in% c("Manager", "Sales Representative", "Sales Person"))
-print(job_df_cleaned$Occupation)
+#print(job_df_cleaned$Occupation)
 ```
 
 ```{r}
