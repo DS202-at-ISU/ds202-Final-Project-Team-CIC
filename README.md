@@ -194,6 +194,7 @@ alone.
 
 ![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
+<<<<<<< HEAD
     ##   [1] "Software Engineer"    "Doctor"               "Doctor"              
     ##   [4] "Sales Representative" "Sales Representative" "Software Engineer"   
     ##   [7] "Teacher"              "Doctor"               "Doctor"              
@@ -335,6 +336,8 @@ alone.
     ## 10 Teacher                     4.53           4       1.06     40
     ## 11 Engineer                    3.89           3       1.14     63
 
+=======
+>>>>>>> 62acbf5a28f9d6adacc3f1549218a93efe10196b
     ## `geom_line()`: Each group consists of only one observation.
     ## ℹ Do you need to adjust the group aesthetic?
     ## `geom_line()`: Each group consists of only one observation.

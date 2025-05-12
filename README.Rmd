@@ -100,6 +100,7 @@ Each line of exploration is supposed to be featured in one of the Results sectio
 
 ```{r scatterplot, echo=FALSE, fig.cap="This is the figure caption. Make sure to use the description we practised in the homework: first sentence describes structure of the plot, second sentence describes main finding, third sentence describes outliers/follow-up.", message = FALSE}
 df <- read_csv("Sleep_health_and_lifestyle_dataset.csv")
+df_cleaned <- read_csv("df_cleaned.csv")
 str(df)
 ```
 
@@ -155,16 +156,126 @@ Additionally, you can also refer to different sections in your writeup by using 
 Cole Flickinger: Attempt to look at health and sleep based on occupation alone.
 
 ```{r}
+# Sleep Health Data Cleaning Script
+# This script cleans the sleep health and lifestyle dataset
+
+# Load required libraries
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+# Read the data
+#df <- read.csv("Sleep_health_and_lifestyle_dataset.csv")
+
+# Initial exploration
+cat("Initial dataset dimensions:", dim(df), "\n")
+cat("Column names:", names(df), "\n")
+str(df)
+summary(df)
+
+# Check for duplicate rows
+cat("Number of duplicate rows:", sum(duplicated(df)), "\n")
+
+# Remove duplicate rows
+sleep_data_clean <- df %>% distinct()
+cat("After removing duplicates:", dim(sleep_data_clean), "\n")
+
+# Check missing values
+cat("Missing values per column:\n")
+colSums(is.na(sleep_data_clean))
+
+# Standardize categorical variables
+# BMI Category standardization
+unique(sleep_data_clean$BMI.Category)
+sleep_data_clean <- sleep_data_clean %>%
+  mutate(`BMI Category` = case_when(
+    `BMI Category` %in% c("Normal Weight", "Normal") ~ "Normal",
+    `BMI Category` == "Overweight" ~ "Overweight",
+    `BMI Category` == "Obese" ~ "Obese",
+    TRUE ~ `BMI Category`
+  ))
+
+# Check for outliers in numerical columns
+num_cols <- c("Age", "Sleep.Duration", "Quality.of.Sleep", 
+              "Physical.Activity.Level", "Stress.Level", "Heart.Rate", "Daily.Steps")
+
+# Create a summary of the data
+#summary_stats <- sleep_data_clean %>%
+#  group_by(Occupation, Gender) %>%
+#  summarize(
+#    Count = n(),
+#    Avg_Sleep_Duration = mean(Sleep.Duration, na.rm = TRUE),
+#    Avg_Quality = mean(Quality.of.Sleep, na.rm = TRUE),
+#    Avg_Physical_Activity = mean(Physical.Activity.Level, na.rm = TRUE),
+#    Avg_Stress = mean(Stress.Level, na.rm = TRUE),
+#    Avg_Heart_Rate = mean(Heart.Rate, na.rm = TRUE),
+#    Avg_Daily_Steps = mean(Daily.Steps, na.rm = TRUE),
+#    .groups = "drop"
+#  )
+
+# Parse blood pressure into systolic and diastolic
+sleep_data_clean <- sleep_data_clean %>%
+  separate(`Blood Pressure`, into = c("Systolic", "Diastolic"), sep = "/", convert = TRUE)
+
+# Create age groups for easier analysis
+#sleep_data_clean <- sleep_data_clean %>%
+#  mutate(Age_Group = case_when(
+#    Age <= 30 ~ "18-30",
+#    Age <= 40 ~ "31-40",
+#    Age <= 50 ~ "41-50",
+#    Age <= 60 ~ "51-60",
+#    TRUE ~ "60+"
+# ))
+
+# Summary stats by Sleep Disorder
+#disorder_stats <- sleep_data_clean %>%
+#  group_by(`Sleep Disorder`) %>%
+#  summarize(
+#    Count = n(),
+#    Avg_Age = mean(Age, na.rm = TRUE),
+#    Avg_Sleep_Duration = mean(Sleep.Duration, na.rm = TRUE),
+#    Avg_Quality = mean(Quality.of.Sleep, na.rm = TRUE),
+#    Avg_Physical_Activity = mean(Physical.Activity.Level, na.rm = TRUE),
+#    Avg_Stress = mean(Stress.Level, na.rm = TRUE),
+#    Avg_Heart_Rate = mean(Heart.Rate, na.rm = TRUE),
+#    Avg_Daily_Steps = mean(Daily.Steps, na.rm = TRUE),
+#    .groups = "drop"
+#  )
+
+# Final cleaned dataset
+cat("\nFinal cleaned dataset dimensions:", dim(sleep_data_clean), "\n")
+
+# Save the cleaned data
+write.csv(sleep_data_clean, "df_cleaned.csv", row.names = FALSE)
+
+# Display cleaned data sample
+head(sleep_data_clean)
+
+# Display summary statistics
+#print("Occupation and Gender Summary:")
+#print(summary_stats)
+
+#print("Sleep Disorder Summary:")
+#print(disorder_stats)
+```
+
+```{r}
 head(df)
 summary(df)
 summary(df$Occupation)
 unique(df$Occupation)
 df %>% ggplot(aes(x = `Stress Level`, y = `Quality of Sleep`)) + geom_line() + facet_wrap(~df$Occupation)
 ```
+
 ```{r}
-print(df$Occupation)
-#Analyze stress levels by occupation
-job_stress <- df %>%
+job_df_cleaned <- df_cleaned %>% filter(!Occupation %in% c("Manager", "Sales Representative", "Sales Person"))
+print(job_df_cleaned$Occupation)
+```
+
+```{r}
+#print(df$Occupation)
+
+job_stress <- job_df_cleaned %>%
   group_by(Occupation) %>%
   summarize(
     mean_stress = mean(`Stress Level`),
@@ -173,18 +284,16 @@ job_stress <- df %>%
     count = n()
   ) %>%
   arrange(desc(mean_stress))
-print(job_stress)
+#print(job_stress)
 
-# Create a dataset that gives count of people by job and stress level
-job_stress_dist <- df %>%
+job_stress_dist <- job_df_cleaned %>%
   group_by(Occupation, `Stress Level`) %>%
   summarize(count = n(), .groups = 'drop') %>%
-  # Calculate percentage within each job
+  #calculating percentage within each job
   group_by(Occupation) %>%
   mutate(
     percentage = count / sum(count) * 100,
-    # Ensure stress levels are treated as numeric for the line plot
-    `Stress Level` = as.numeric(`Stress Level`)
+    `Stress Level` = as.numeric(`Stress Level`) #ensuring stress levels are treated as numeric for the line plot
   )
 
 # Create a faceted line plot showing stress level distribution by job
@@ -204,10 +313,10 @@ ggplot(job_stress_dist, aes(x = `Stress Level`, y = percentage, group = Occupati
     strip.text = element_text(face = "bold"),
     panel.grid.minor = element_blank()
   ) +
-  scale_x_continuous(breaks = seq(1, 10, 1))  # Fixed: Use seq() for breaks from 1 to 10
+  scale_x_continuous(breaks = seq(1, 10, 1))#found this nifty thing for formatting from stack overflow
 
-# Alternative visualization: Boxplot of stress levels by occupation
-ggplot(df, aes(x = reorder(Occupation, `Stress Level`, FUN = median), y = `Stress Level`, fill = Occupation)) +
+#alternative visualization of stress level by job: Boxplot of stress levels by occupation
+ggplot(job_df_cleaned, aes(x = reorder(Occupation, `Stress Level`, FUN = median), y = `Stress Level`, fill = Occupation)) +
   geom_boxplot(alpha = 0.7) +
   coord_flip() +
   labs(
@@ -221,7 +330,7 @@ ggplot(df, aes(x = reorder(Occupation, `Stress Level`, FUN = median), y = `Stres
   scale_fill_brewer(palette = "Set3")
 
 # Investigate relationship between stress level and sleep duration by occupation
-ggplot(df, aes(x = `Stress Level`, y = `Sleep Duration`, color = Occupation)) +
+ggplot(job_df_cleaned, aes(x = `Stress Level`, y = `Sleep Duration`, color = Occupation)) +
   geom_point(alpha = 0.6) +
   geom_smooth(method = "lm", se = FALSE) +
   facet_wrap(~ Occupation) +
@@ -241,7 +350,51 @@ ggplot(df, aes(x = `Stress Level`, y = `Sleep Duration`, color = Occupation)) +
 Notable: there is only 1 manager, 26 salespersons, and 4 sales representatives.
 
 ## Results 3
+```{r}
+summary(df$Gender)
+df_male <- subset(df, Gender == "Male")
+df_female <- subset(df, Gender == "Female")
+ggplot(df, aes(x = `Quality of Sleep`, fill = `Gender`)) +
+  geom_histogram(binwidth = 2, position = "identity", alpha = 0.5) +
+  labs(title = "Quality of Sleep by Gender",
+       x = "Quality of Sleep",
+       y = "Count")
 
+ggplot(df, aes(x = `Sleep Duration`, y = `Quality of Sleep`, color = `Gender`)) +
+  geom_point() +  
+  labs(
+    title = "Quality and Duration of Sleep by Gender",
+    x = "Sleep Duration",
+    y = "Quality of Sleep",
+  ) 
+
+ggplot(df, aes(x = `Stress Level`, y = `Quality of Sleep`, color = `Gender`)) +
+  geom_point() +  
+  labs(
+    title = "Stress and Quality of Sleep by Gender",
+    x = "Stress Level",
+    y = "Quality of Sleep",
+  ) 
+
+ggplot(df, aes(x = `Gender`, fill = `Sleep Disorder`)) +
+  geom_bar(position = "fill") +
+  labs(title = "Sleep Disorders by Gender",
+       y = "Sleep Disorders",
+       x = "Gender")
+
+ggplot(df, aes(x = `Stress Level`, fill = `Gender`)) +
+  geom_histogram(binwidth = 1, position = "identity", alpha = 0.5) +
+  labs(title = "Stress by Gender",
+       x = "Stress Level",
+       y = "Count")
+print(mean(df_female$`Sleep Duration`))
+print(mean(df_male$`Sleep Duration`))
+print(mean(df_female$`Quality of Sleep`))
+print(mean(df_male$`Quality of Sleep`))
+print(mean(df_female$`Stress Level`))
+print(mean(df_male$`Stress Level`))
+
+```
 ...
 
 # Conclusions
