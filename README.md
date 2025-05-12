@@ -84,17 +84,6 @@ headers!
 
 ## Results 1
 
-In your write-up, make sure to refer to all of the figures you create.
-You can include a hyperlink to the [scatterplot](#fig:scatterplot) by
-using the name of the code chunk (make sure, to give each code chunk a
-different name). In your markdown document you can create this link
-either by calling the function `chunkref` with the name of the code
-chunk in quotes, i.e. `r chunkref("scatterplot")` or by using the
-markdown expression `[scatterplot](#fig:scatterplot)`. Similarly, we can
-refer to the [2nd scatterplot](#fig:2nd%20scatterplot). Note that the
-figure captions appear above the figures - this saves us from having to
-scroll up after following the link.
-
 <p>
 <small><strong><a name='fig:scatterplot'>scatterplot</a></strong>: This
 is the figure caption. Make sure to use the description we practised in
@@ -135,19 +124,20 @@ outliers/follow-up.</small>
     ##   .. )
     ##  - attr(*, "problems")=<externalptr>
 
-<p>
-<small><strong><a name='fig:2nd scatterplot'>2nd
-scatterplot</a></strong>: This is the figure caption. Make sure to use
-the description we practised in the homework: first sentence describes
-structure of the plot, second sentence describes main finding, third
-sentence describes outliers/follow-up.</small>
-</p>
+![](README_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+
+    ## `geom_smooth()` using formula = 'y ~ x'
+
+![](README_files/figure-gfm/unnamed-chunk-1-2.png)<!-- -->![](README_files/figure-gfm/unnamed-chunk-1-3.png)<!-- -->![](README_files/figure-gfm/unnamed-chunk-1-4.png)<!-- -->![](README_files/figure-gfm/unnamed-chunk-1-5.png)<!-- -->
 
 Additionally, you can also refer to different sections in your writeup
 by using anchors (links) to section headers. Here, we are referring to
 subsection [Results 3](#results-3). The code for that is `[Results 3]`.
 
 ## Results 2
+
+Cole Flickinger: Attempt to look at health and sleep based on occupation
+alone.
 
 ## Results 3
 
