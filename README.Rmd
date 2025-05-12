@@ -157,12 +157,90 @@ Additionally, you can also refer to different sections in your writeup by using 
 Cole Flickinger: Attempt to look at health and sleep based on occupation alone.
 
 ```{r}
-#head(df)
-#summary(df)
-#summary(df$Occupation)
-#unique(df$Occupation)
-#df %>% ggplot(aes(x = nrow(), y = `Quality of Sleep`)) + geom_line() + facet_wrap(~df$Occupation)
+head(df)
+summary(df)
+summary(df$Occupation)
+unique(df$Occupation)
+df %>% ggplot(aes(x = `Stress Level`, y = `Quality of Sleep`)) + geom_line() + facet_wrap(~df$Occupation)
 ```
+```{r}
+print(df$Occupation)
+#Analyze stress levels by occupation
+job_stress <- df %>%
+  group_by(Occupation) %>%
+  summarize(
+    mean_stress = mean(`Stress Level`),
+    median_stress = median(`Stress Level`),
+    sd_stress = sd(`Stress Level`),
+    count = n()
+  ) %>%
+  arrange(desc(mean_stress))
+print(job_stress)
+
+# Create a dataset that gives count of people by job and stress level
+job_stress_dist <- df %>%
+  group_by(Occupation, `Stress Level`) %>%
+  summarize(count = n(), .groups = 'drop') %>%
+  # Calculate percentage within each job
+  group_by(Occupation) %>%
+  mutate(
+    percentage = count / sum(count) * 100,
+    # Ensure stress levels are treated as numeric for the line plot
+    `Stress Level` = as.numeric(`Stress Level`)
+  )
+
+# Create a faceted line plot showing stress level distribution by job
+ggplot(job_stress_dist, aes(x = `Stress Level`, y = percentage, group = Occupation)) +
+  geom_line(color = "steelblue", linewidth = 1) +
+  geom_point(color = "steelblue", size = 2) +
+  facet_wrap(~ Occupation) +
+  labs(
+    title = "Distribution of Stress Levels by Occupation",
+    x = "Stress Level (1-10 scale)",
+    y = "Percentage of Individuals (%)",
+    caption = "Source: Sleep Health and Lifestyle Dataset"
+  ) +
+  theme_minimal() +
+  theme(
+    strip.background = element_rect(fill = "lightblue", color = "black"),
+    strip.text = element_text(face = "bold"),
+    panel.grid.minor = element_blank()
+  ) +
+  scale_x_continuous(breaks = seq(1, 10, 1))  # Fixed: Use seq() for breaks from 1 to 10
+
+# Alternative visualization: Boxplot of stress levels by occupation
+ggplot(df, aes(x = reorder(Occupation, `Stress Level`, FUN = median), y = `Stress Level`, fill = Occupation)) +
+  geom_boxplot(alpha = 0.7) +
+  coord_flip() +
+  labs(
+    title = "Stress Levels by Occupation",
+    x = "",
+    y = "Stress Level (1-10 scale)",
+    caption = "Source: Sleep Health and Lifestyle Dataset"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  scale_fill_brewer(palette = "Set3")
+
+# Investigate relationship between stress level and sleep duration by occupation
+ggplot(df, aes(x = `Stress Level`, y = `Sleep Duration`, color = Occupation)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_wrap(~ Occupation) +
+  labs(
+    title = "Relationship Between Stress Level and Sleep Duration by Occupation",
+    x = "Stress Level (1-10 scale)",
+    y = "Sleep Duration (hours)",
+    caption = "Source: Sleep Health and Lifestyle Dataset"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    strip.background = element_rect(fill = "lightblue", color = "black"),
+    strip.text = element_text(face = "bold")
+  )
+```
+Notable: there is only 1 manager, 26 salespersons, and 4 sales representatives.
 
 ## Results 3
 
