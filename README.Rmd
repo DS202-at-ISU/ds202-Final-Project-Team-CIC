@@ -134,8 +134,6 @@ ggplot(df, aes(x = `Sleep Duration`, y = `Quality of Sleep`, color = `Sleep Diso
        y = "Sleep Quality (1-10)") +
   theme_minimal()
 
-library(ggplot2)
-
 ggplot(df, aes(x = Age, y = `Stress Level`)) +
   geom_point(size = 3, alpha = 0.5, color = "steelblue") +  # All points same color
   labs(
@@ -347,7 +345,51 @@ ggplot(job_df_cleaned, aes(x = `Stress Level`, y = `Sleep Duration`, color = Occ
 Notable: there is only 1 manager, 26 salespersons, and 4 sales representatives.
 
 ## Results 3
+```{r}
+summary(df$Gender)
+df_male <- subset(df, Gender == "Male")
+df_female <- subset(df, Gender == "Female")
+ggplot(df, aes(x = `Quality of Sleep`, fill = `Gender`)) +
+  geom_histogram(binwidth = 2, position = "identity", alpha = 0.5) +
+  labs(title = "Quality of Sleep by Gender",
+       x = "Quality of Sleep",
+       y = "Count")
 
+ggplot(df, aes(x = `Sleep Duration`, y = `Quality of Sleep`, color = `Gender`)) +
+  geom_point() +  
+  labs(
+    title = "Quality and Duration of Sleep by Gender",
+    x = "Sleep Duration",
+    y = "Quality of Sleep",
+  ) 
+
+ggplot(df, aes(x = `Stress Level`, y = `Quality of Sleep`, color = `Gender`)) +
+  geom_point() +  
+  labs(
+    title = "Stress and Quality of Sleep by Gender",
+    x = "Stress Level",
+    y = "Quality of Sleep",
+  ) 
+
+ggplot(df, aes(x = `Gender`, fill = `Sleep Disorder`)) +
+  geom_bar(position = "fill") +
+  labs(title = "Sleep Disorders by Gender",
+       y = "Sleep Disorders",
+       x = "Gender")
+
+ggplot(df, aes(x = `Stress Level`, fill = `Gender`)) +
+  geom_histogram(binwidth = 1, position = "identity", alpha = 0.5) +
+  labs(title = "Stress by Gender",
+       x = "Stress Level",
+       y = "Count")
+print(mean(df_female$`Sleep Duration`))
+print(mean(df_male$`Sleep Duration`))
+print(mean(df_female$`Quality of Sleep`))
+print(mean(df_male$`Quality of Sleep`))
+print(mean(df_female$`Stress Level`))
+print(mean(df_male$`Stress Level`))
+
+```
 ...
 
 # Conclusions
