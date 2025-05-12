@@ -133,8 +133,6 @@ ggplot(df, aes(x = `Sleep Duration`, y = `Quality of Sleep`, color = `Sleep Diso
        y = "Sleep Quality (1-10)") +
   theme_minimal()
 
-library(ggplot2)
-
 ggplot(df, aes(x = Age, y = `Stress Level`)) +
   geom_point(size = 3, alpha = 0.5, color = "steelblue") +  # All points same color
   labs(
