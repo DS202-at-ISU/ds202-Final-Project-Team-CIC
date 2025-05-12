@@ -139,6 +139,75 @@ subsection [Results 3](#results-3). The code for that is `[Results 3]`.
 Cole Flickinger: Attempt to look at health and sleep based on occupation
 alone.
 
+    ## # A tibble: 6 × 13
+    ##   `Person ID` Gender   Age Occupation        `Sleep Duration` `Quality of Sleep`
+    ##         <dbl> <chr>  <dbl> <chr>                        <dbl>              <dbl>
+    ## 1           1 Male      27 Software Engineer              6.1                  6
+    ## 2           2 Male      28 Doctor                         6.2                  6
+    ## 3           3 Male      28 Doctor                         6.2                  6
+    ## 4           4 Male      28 Sales Representa…              5.9                  4
+    ## 5           5 Male      28 Sales Representa…              5.9                  4
+    ## 6           6 Male      28 Software Engineer              5.9                  4
+    ## # ℹ 7 more variables: `Physical Activity Level` <dbl>, `Stress Level` <dbl>,
+    ## #   `BMI Category` <chr>, `Blood Pressure` <chr>, `Heart Rate` <dbl>,
+    ## #   `Daily Steps` <dbl>, `Sleep Disorder` <chr>
+
+    ##    Person ID         Gender               Age         Occupation       
+    ##  Min.   :  1.00   Length:374         Min.   :27.00   Length:374        
+    ##  1st Qu.: 94.25   Class :character   1st Qu.:35.25   Class :character  
+    ##  Median :187.50   Mode  :character   Median :43.00   Mode  :character  
+    ##  Mean   :187.50                      Mean   :42.18                     
+    ##  3rd Qu.:280.75                      3rd Qu.:50.00                     
+    ##  Max.   :374.00                      Max.   :59.00                     
+    ##  Sleep Duration  Quality of Sleep Physical Activity Level  Stress Level  
+    ##  Min.   :5.800   Min.   :4.000    Min.   :30.00           Min.   :3.000  
+    ##  1st Qu.:6.400   1st Qu.:6.000    1st Qu.:45.00           1st Qu.:4.000  
+    ##  Median :7.200   Median :7.000    Median :60.00           Median :5.000  
+    ##  Mean   :7.132   Mean   :7.313    Mean   :59.17           Mean   :5.385  
+    ##  3rd Qu.:7.800   3rd Qu.:8.000    3rd Qu.:75.00           3rd Qu.:7.000  
+    ##  Max.   :8.500   Max.   :9.000    Max.   :90.00           Max.   :8.000  
+    ##  BMI Category       Blood Pressure       Heart Rate     Daily Steps   
+    ##  Length:374         Length:374         Min.   :65.00   Min.   : 3000  
+    ##  Class :character   Class :character   1st Qu.:68.00   1st Qu.: 5600  
+    ##  Mode  :character   Mode  :character   Median :70.00   Median : 7000  
+    ##                                        Mean   :70.17   Mean   : 6817  
+    ##                                        3rd Qu.:72.00   3rd Qu.: 8000  
+    ##                                        Max.   :86.00   Max.   :10000  
+    ##  Sleep Disorder    
+    ##  Length:374        
+    ##  Class :character  
+    ##  Mode  :character  
+    ##                    
+    ##                    
+    ## 
+
+    ##    Length     Class      Mode 
+    ##       374 character character
+
+    ##  [1] "Software Engineer"    "Doctor"               "Sales Representative"
+    ##  [4] "Teacher"              "Nurse"                "Engineer"            
+    ##  [7] "Accountant"           "Scientist"            "Lawyer"              
+    ## [10] "Salesperson"          "Manager"
+
+    ## `geom_line()`: Each group consists of only one observation.
+    ## ℹ Do you need to adjust the group aesthetic?
+
+![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+
+    ## `geom_line()`: Each group consists of only one observation.
+    ## ℹ Do you need to adjust the group aesthetic?
+    ## `geom_line()`: Each group consists of only one observation.
+    ## ℹ Do you need to adjust the group aesthetic?
+    ## `geom_line()`: Each group consists of only one observation.
+    ## ℹ Do you need to adjust the group aesthetic?
+
+![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->![](README_files/figure-gfm/unnamed-chunk-3-2.png)<!-- -->
+
+    ## `geom_smooth()` using formula = 'y ~ x'
+
+![](README_files/figure-gfm/unnamed-chunk-3-3.png)<!-- --> Notable:
+there is only 1 manager, 26 salespersons, and 4 sales representatives.
+
 ## Results 3
 
 …
