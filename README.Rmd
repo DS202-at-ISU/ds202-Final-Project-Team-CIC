@@ -358,7 +358,7 @@ df_male <- subset(df, Gender == "Male")
 df_female <- subset(df, Gender == "Female")
 ggplot(df, aes(x = `Quality of Sleep`, fill = `Gender`)) +
   geom_histogram(binwidth = 2, position = "identity", alpha = 0.5) +
-  labs(title = "Age Distribution by Sleep Disorder Status",
+  labs(title = "Quality of Sleep by Gender",
        x = "Quality of Sleep",
        y = "Count")
 
