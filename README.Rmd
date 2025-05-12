@@ -356,10 +356,17 @@ Notable: there is only 1 manager, 26 salespersons, and 4 sales representatives.
 summary(df$Gender)
 df_male <- subset(df, Gender == "Male")
 df_female <- subset(df, Gender == "Female")
+
 ggplot(df, aes(x = `Quality of Sleep`, fill = `Gender`)) +
   geom_histogram(binwidth = 2, position = "identity", alpha = 0.5) +
   labs(title = "Quality of Sleep by Gender",
        x = "Quality of Sleep",
+       y = "Count")
+
+ggplot(df, aes(x = `Quality of Sleep`, fill = `Gender`)) +
+  geom_histogram(binwidth = 1, position = "identity", alpha = 0.5) +
+  labs(title = "Duration of Sleep by Gender",
+       x = "Duration of Sleep",
        y = "Count")
 
 ggplot(df, aes(x = `Sleep Duration`, y = `Quality of Sleep`, color = `Gender`)) +
@@ -408,5 +415,5 @@ Give a quick summary of your work. Here is the place to be a bit critical and di
 Where does the data come from, who owns the data? Where are all the scripts that you need to clean the data?
 
 ## References {.unnumbered}
-
+https://aasm.org/new-national-indicator-report-details-importance-prompt-sleep-apnea-diagnosis-treatment/
 List all resources you used.
