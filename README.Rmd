@@ -377,8 +377,9 @@ ggplot(df, aes(x = `Stress Level`, y = `Quality of Sleep`, color = `Gender`)) +
     y = "Quality of Sleep",
   ) 
 
-ggplot(df, aes(x = `Gender`, fill = `Sleep Disorder`)) +
+ggplot(job_df_cleaned, aes(x = `Gender`, fill = `Sleep Disorder`)) +
   geom_bar(position = "fill") +
+  facet_wrap(~ Occupation) +
   labs(title = "Sleep Disorders by Gender",
        y = "Sleep Disorders",
        x = "Gender")
