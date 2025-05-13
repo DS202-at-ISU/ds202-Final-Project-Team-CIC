@@ -159,11 +159,6 @@ Cole Flickinger: Attempt to look at health and sleep based on occupation alone.
 # Sleep Health Data Cleaning Script
 # This script cleans the sleep health and lifestyle dataset
 
-# Load required libraries
-library(dplyr)
-library(tidyr)
-library(ggplot2)
-
 # Read the data
 #df <- read.csv("Sleep_health_and_lifestyle_dataset.csv")
 
@@ -186,7 +181,7 @@ colSums(is.na(sleep_data_clean))
 
 # Standardize categorical variables
 # BMI Category standardization
-unique(sleep_data_clean$BMI.Category)
+unique(sleep_data_clean$BMI.Category)#sort of like gathering levels
 sleep_data_clean <- sleep_data_clean %>%
   mutate(`BMI Category` = case_when(
     `BMI Category` %in% c("Normal Weight", "Normal") ~ "Normal",
@@ -268,8 +263,8 @@ df %>% ggplot(aes(x = `Stress Level`, y = `Quality of Sleep`)) + geom_line() + f
 ```
 
 ```{r}
-job_df_cleaned <- df_cleaned %>% filter(!Occupation %in% c("Manager", "Sales Representative", "Sales Person"))
-print(job_df_cleaned$Occupation)
+job_df_cleaned <- df_cleaned %>% filter(!Occupation %in% c("Manager", "Sales Representative", "Salesperson"))
+#print(job_df_cleaned$Occupation)
 ```
 
 ```{r}
@@ -297,13 +292,12 @@ job_stress_dist <- job_df_cleaned %>%
   )
 
 # Create a faceted line plot showing stress level distribution by job
-ggplot(job_stress_dist, aes(x = `Stress Level`, y = percentage, group = Occupation)) +
-  geom_line(color = "steelblue", linewidth = 1) +
-  geom_point(color = "steelblue", size = 2) +
+ggplot(job_stress_dist, aes(x = `Stress Level`, y = percentage)) +
+  geom_col(fill = "steelblue") +
   facet_wrap(~ Occupation) +
   labs(
     title = "Distribution of Stress Levels by Occupation",
-    x = "Stress Level (1-10 scale)",
+    x = "Stress Level (1–10 scale)",
     y = "Percentage of Individuals (%)",
     caption = "Source: Sleep Health and Lifestyle Dataset"
   ) +
