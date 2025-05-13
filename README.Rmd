@@ -409,6 +409,16 @@ print(mean(df_male$`Stress Level`))
 
 Give a quick summary of your work. Here is the place to be a bit critical and discuss potential limitations. Add a sentence on what else you would have liked to include in your data exploration if you had more time or more members in your team. 
 
+Difference seen with gender split may not be due to gender but other causes; stress, occupation and sleep disorders, although more research is needed.
+A drop in sleep quality leads to an increase in stress, while a rise in stress may also decrease sleep quality.
+Both high stress or low sleep quality leads to an average increase in prevalence of sleep disorders
+
+
+
+
+
+
+
 ## Data source {.unnumbered}
 Kaggle
 Where does the data come from, who owns the data? Where are all the scripts that you need to clean the data?
