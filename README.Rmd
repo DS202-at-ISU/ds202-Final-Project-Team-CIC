@@ -394,6 +394,12 @@ ggplot(df, aes(x = `Stress Level`, fill = `Gender`)) +
   labs(title = "Stress by Gender",
        x = "Stress Level",
        y = "Count")
+
+ggplot(job_df_cleaned, aes(x = `Gender`, fill = `Occupation`)) +
+  geom_bar(position = "fill") +
+  labs(title = "Occupation by Gender",
+      
+       x = "Gender")
 print(mean(df_female$`Sleep Duration`))
 print(mean(df_male$`Sleep Duration`))
 print(mean(df_female$`Quality of Sleep`))
